@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Daftar Pengguna</h1>
+    
+    <!-- Form for adding users -->
+    <form method="POST">
+        <h2>Tambah Pengguna Baru</h2>
+        <input type="text" name="nama" placeholder="Nama" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Tambah</button>
+    </form>
+
+    <!-- User list table -->
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.nama }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a href="{{ url_for('hapus_user', user_id=loop.index0) }}" 
+                       class="btn-delete" 
+                       onclick="return confirm('Yakin ingin menghapus?')">
+                        Hapus
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
